@@ -1,14 +1,14 @@
-#ifndef PARSER_FTYBLOCKPARSING_HPP
-#define PARSER_FTYBLOCKPARSING_HPP
+#ifndef FTY_CONVERTER_BLOCKPARSER_HPP
+#define FTY_CONVERTER_BLOCKPARSER_HPP
 
 
-#include "FtyInternals.h"
+#include "FtyInternals.hpp"
 #include <sstream>
 #include <regex>
 
 namespace fty {
-  namespace internals {
-
+  class BlockParser {
+  public:
     std::string getHeader(const BlockT &Block) {
       std::regex Expr("&\\s*(\\w*)\\s*.*");
       std::smatch Match;
@@ -59,7 +59,7 @@ namespace fty {
 
       return Fields;
     }
-  }
+  };
 }
 
-#endif //PARSER_FTYBLOCKPARSING_HPP
+#endif //FTY_CONVERTER_BLOCKPARSER_HPP

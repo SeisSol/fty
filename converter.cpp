@@ -1,4 +1,4 @@
-#include "include/fty.h"
+#include "Fty.hpp"
 #include <iostream>
 #include <cstdlib>
 
@@ -10,8 +10,9 @@ int main(int Argc, char *Argv[]) {
   }
 
   std::string FileName = Argv[1];
+  fty::Loader Loader{};
   try {
-    YAML::Node Params = fty::load(FileName);
+    YAML::Node Params = Loader.load(FileName);
     std::cout << Params;
   }
   catch (const fty::exception::FileException& Error) {
@@ -23,3 +24,16 @@ int main(int Argc, char *Argv[]) {
   }
   return 0;
 }
+
+/*
+#include "deprecated-2/Fty.h"
+#include <iostream>
+#include <cstdlib>
+
+int main(int Argc, char *Argv[]) {
+  fty::Fty Converter{};
+  YAML::Node Params =Converter.load("./parameters.par");
+  std::cout << Params;
+  return 0;
+}
+*/

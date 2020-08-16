@@ -1,11 +1,14 @@
-#ifndef PARSER_FTYBLOCKPROCESSING_H
-#define PARSER_FTYBLOCKPROCESSING_H
+#ifndef FTY_CONVERTER_BLOCKPROCESSOR_HPP
+#define FTY_CONVERTER_BLOCKPROCESSOR_HPP
 
-#include "FtyInternals.h"
+
+#include "FtyInternals.hpp"
+#include "StringProcessor.h"
 
 namespace fty {
-  namespace internals {
 
+  class BlockProcessor {
+  public:
     /**
      * Finds a block given the beginning, end, comment symbols of a block. 'Bigin' iterator will be modified
      * which will point to the next line after the end block symbol
@@ -26,7 +29,7 @@ namespace fty {
       }
 
       // skip everything above which is not a block
-      while ((CurrentItr != End) && (!startsWith(*CurrentItr, BlockBeginChar))) {
+      while ((CurrentItr != End) && (!m_StringProcessor.startsWith(*CurrentItr, BlockBeginChar))) {
         ++CurrentItr;
       }
       if (CurrentItr == End) {
@@ -41,8 +44,8 @@ namespace fty {
       bool IsBlockEndFound = false;
       bool IsNextBlockFound = false;
       for (; CurrentItr != End; ++CurrentItr) {
-        IsBlockEndFound = startsWith(*CurrentItr, BlockEndChar);
-        IsNextBlockFound = startsWith(*CurrentItr, BlockBeginChar);
+        IsBlockEndFound = m_StringProcessor.startsWith(*CurrentItr, BlockEndChar);
+        IsNextBlockFound = m_StringProcessor.startsWith(*CurrentItr, BlockBeginChar);
 
         if (IsBlockEndFound or IsNextBlockFound) break;
       }
@@ -81,7 +84,10 @@ namespace fty {
       }
     }
 
-  }
+  private:
+    StringProcessor m_StringProcessor;
+  };
 }
 
-#endif //PARSER_FTYBLOCKPROCESSING_H
+
+#endif //FTY_CONVERTER_BLOCKPROCESSOR_HPP

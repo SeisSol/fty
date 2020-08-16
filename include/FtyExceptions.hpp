@@ -12,15 +12,18 @@ namespace fty {
       BaseException(const std::string& Message) : std::runtime_error("ParsingError: " + Message) {}
     };
 
+
     class FileException : public BaseException {
     public:
       FileException(const std::string& Message) : BaseException(Message) {}
     };
 
+
     class TextBlockException : public BaseException {
     public:
       TextBlockException(const std::string& Message) : BaseException(Message) {}
     };
+
 
     class CriticalTextBlockException : public BaseException {
     public:

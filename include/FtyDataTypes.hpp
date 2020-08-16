@@ -2,7 +2,7 @@
 #define PARSER_FTYDATATYPES_HPP
 
 #include <list>
-#include <tuple>
+#include <string>
 
 namespace fty {
   using StringsT = std::list<std::string>;

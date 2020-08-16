@@ -1,11 +1,13 @@
-#ifndef PARSER_FTYSTRINGPROCESSING_H
-#define PARSER_FTYSTRINGPROCESSING_H
+#ifndef FTY_CONVERTER_STRINGPROCESSOR_H
+#define FTY_CONVERTER_STRINGPROCESSOR_H
 
-#include "FtyInternals.h"
+#include "FtyInternals.hpp"
+#include "FtyInternals.hpp"
 #include <regex>
 
 namespace fty {
-  namespace internals {
+  class StringProcessor {
+  public:
 
     /**
      * Checks whether the given line starts with 'Character'
@@ -55,7 +57,7 @@ namespace fty {
         Content.erase(Itr);
       }
     }
-  }
+  };
 }
 
-#endif //PARSER_FTYSTRINGPROCESSING_H
+#endif //FTY_CONVERTER_STRINGPROCESSOR_H

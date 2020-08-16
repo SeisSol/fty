@@ -1,0 +1,12 @@
+#ifndef PARSER_FTYDATATYPES_HPP
+#define PARSER_FTYDATATYPES_HPP
+
+#include <list>
+#include <tuple>
+
+namespace fty {
+  using StringsT = std::list<std::string>;
+  using BlockT = std::pair<StringsT::iterator, StringsT::iterator>;
+}
+
+#endif //PARSER_FTYDATATYPES_HPP

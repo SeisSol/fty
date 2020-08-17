@@ -39,7 +39,7 @@ TEST(BlockProcessorTest, RemoveEmptyBlocks) {
 
   Factory.add({{"&Empty"}, {"/"}});
   Factory.add({{"&Boundaries"}, {"Order=1 "}, {"BC_fs = 1.5"}, {"BC_of = 1"}, {"/"}});
-  Factory.add({{"&Empty"}, {"&Empty"}, {"/"}});
+  Factory.add({{"&Empty"}, {"/"}});
 
   StringsT Content = Factory.getContent();
   std::list<BlockT> Blocks = Factory.getBlocks();

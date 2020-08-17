@@ -51,7 +51,7 @@ TEST_F(PolicyTests, UppercaseTest) {
 }
 
 
-TEST_F(PolicyTests, DefaultPolicyTest) {
+TEST_F(PolicyTests, OriginalPolicyTest) {
   BlockT Block = make_block(m_TestContent);
   BlockParser<As_original> Processor;
 

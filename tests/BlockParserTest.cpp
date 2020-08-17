@@ -7,7 +7,6 @@
 
 using namespace fty;
 
-
 TEST(HeaderTest, HeaderWithWhitespaces) {
   BlockParser<As_original> Processor;
   StringsT Content{{"  &  Discretization  "}, {"Order = 1"}};

@@ -9,6 +9,11 @@ before_install:
 install:
   - sudo apt-get install cmake libyaml-cpp-dev libgtest-dev
 
+before_script:
+  - cd /usr/src/googletest/googletest
+  - sudo cmake ./CMakeLists.txt -Dgtest_disable_pthreads=ON && sudo make && sudo make install
+  - cd $TRAVIS_BUILD_DIR
+
 script:
   - cd tests/ && mkdir build && cd build
   - cmake .. && make

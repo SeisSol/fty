@@ -1,0 +1,15 @@
+dist: bionic
+language: cpp
+comiler:
+  - gcc
+
+before_install:
+  - sudo apt-get update -qq
+
+install:
+  - sudo apt-get install cmake libyaml-cpp-dev libgtest-dev
+
+script:
+  - cd tests/ && mkdir build && cd build
+  - cmake .. && make
+  - ./tests

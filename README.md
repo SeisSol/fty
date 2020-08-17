@@ -12,8 +12,32 @@ fty::exception::FileException
 fty::exception::CriticalTextBlockException
 fty::exception::CriticalKeyValueError
 ```
+## Policies
+The library offers several base policies for storing keys in a generated hash table due to issues related to the case sensitivity.
 
-## Example
+| Name         	| Description                                      	|
+|--------------	|--------------------------------------------------	|
+| As_default   	| stores keys as it is given in an input file/list 	|
+| As_uppercase 	| converts all keys to upper-case                  	|
+| As_lowercase 	| converts all keys to lower-case                  	|
+
+If none of the policies fit to your particular problem you can provide yours by defining and providing a class to either *fty::Loader* or *fty::Converter*
+
+#### Policy Example
+```
+struct MyPolicy {
+  std::string apply(const std::string& String) {
+    std::string ConvertedString(String.size(), '\0');
+    // your code is here
+    return ConvertedString;
+  }
+};
+
+fty::Loader<MyPolicy> Loader{};
+```
+
+
+## Code Example
 ```
 #include "Fty.hpp"
 #include <iostream>
@@ -27,7 +51,7 @@ int main(int Argc, char *Argv[]) {
   }
 
   std::string FileName = Argv[1];
-  fty::Loader Loader{};
+  fty::Loader<fty::As_lowercase> Loader{};
   try {
     YAML::Node Params = Loader.load(FileName);
     std::cout << Params;

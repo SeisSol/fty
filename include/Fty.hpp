@@ -6,11 +6,13 @@
 #include "StringProcessor.h"
 #include "BlockProcessor.hpp"
 #include "BlockParser.hpp"
+#include "FtyPolicies.hpp"
 #include <iostream>
 #include <fstream>
 
 namespace fty {
 
+  template <typename Policy>
   class Converter {
   public:
     YAML::Node convertToYAML(fty::StringsT Content) {
@@ -67,11 +69,11 @@ namespace fty {
 
     StringProcessor m_StringProcessor;
     BlockProcessor m_BlockProcessor;
-    BlockParser m_BlockParser;
+    BlockParser<Policy> m_BlockParser;
     StringsT m_Warnings;
   };
 
-
+  template <typename Policy>
   class Loader {
   public:
     YAML::Node load(const std::string& FileName) {
@@ -116,7 +118,7 @@ namespace fty {
     }
 
 
-    Converter m_Converter;
+    Converter<Policy> m_Converter;
   };
 }
 

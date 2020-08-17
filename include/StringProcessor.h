@@ -29,10 +29,10 @@ namespace fty {
 
 
     void removeComments(StringsT &Content) {
-      std::regex Expr("^([^!]*)!.*");
+
       for (auto &Item : Content) {
         std::smatch Match;
-        if (std::regex_match(Item, Match, Expr)) {
+        if (std::regex_match(Item, Match, m_Comment_Expr)) {
           Item = Match[1];
         }
       }
@@ -57,6 +57,9 @@ namespace fty {
         Content.erase(Itr);
       }
     }
+
+  private:
+    std::regex m_Comment_Expr{"^([^!]*)!.*"};
   };
 }
 

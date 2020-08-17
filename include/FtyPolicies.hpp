@@ -23,7 +23,7 @@ namespace fty {
     }
   };
 
-  struct As_default {
+  struct As_original {
     std::string apply(const std::string& String) {
       return String;
     }

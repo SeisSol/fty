@@ -1,7 +1,6 @@
 #ifndef FTY_CONVERTER_BLOCKPARSER_HPP
 #define FTY_CONVERTER_BLOCKPARSER_HPP
 
-
 #include "FtyInternals.hpp"
 #include <sstream>
 #include <regex>
@@ -26,6 +25,10 @@ namespace fty {
 
       auto Itr = next(Block.first); // the header
       auto End = Block.second;  // the footer
+
+      if (Itr == End) {
+        throw exception::CriticalTextBlockException("provided an empty block: " + *Itr);
+      }
 
 
       for (; Itr != End; ++Itr) {
@@ -59,7 +62,7 @@ namespace fty {
     }
 
   private:
-    std::regex m_HeaderExpr{"&\\s*(\\w*)\\s*.*"};
+    std::regex m_HeaderExpr{"^\\s*&\\s*(\\w*)\\s*.*\\s?"};
     std::regex m_FieldExpr{"\\s*(\\w*)\\s*=\\s*((?:\\w|[[:punct:]])(?:(?:\\w|[[:punct:]]|\\s)*(?:\\w|[[:punct:]]))?)\\s*"};
     std::regex m_QuotedValueExpr{"^(\'|\")+(.*)(\'|\")+$"};
     Policy m_KeyModifier;

@@ -25,8 +25,8 @@ namespace fty {
       StringsT::iterator End = Content.end();
 
       std::list<BlockT> Blocks;
-      try {
 
+      try {
         while (Begin != End) {
           Blocks.push_back(m_BlockProcessor.getNextBlock(Begin, End));
         }
@@ -43,8 +43,8 @@ namespace fty {
         std::cout << Error.what() << std::endl;
         throw Error;
       }
-
       m_BlockProcessor.removeEmptyBlocks(Blocks);
+
 
       YAML::Node Params;
       for (auto& Block: Blocks) {

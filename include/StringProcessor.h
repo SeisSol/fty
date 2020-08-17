@@ -11,8 +11,8 @@ namespace fty {
 
     /**
      * Checks whether the given line starts with 'Character'
-     * @param String test string
-     * @param Character test character
+     * @param String tests string
+     * @param Character tests character
      * @return true if the string starts with 'Character'. Otherwise, false
      */
     bool startsWith(const std::string &String, const char Character) {
@@ -59,7 +59,7 @@ namespace fty {
     }
 
   private:
-    std::regex m_Comment_Expr{"^([^!]*)!.*"};
+    std::regex m_Comment_Expr{"^([^!]*)!.*\\s?$"};
   };
 }
 

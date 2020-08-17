@@ -4,6 +4,7 @@
 
 #include "FtyInternals.hpp"
 #include "StringProcessor.h"
+#include <iostream>
 
 namespace fty {
 
@@ -22,7 +23,6 @@ namespace fty {
       BlockT Block;
       const char BlockBeginChar = '&';
       const char BlockEndChar = '/';
-      const char CommentChar = '!';
 
       if (CurrentItr == End) {
         throw exception::TextBlockException("given an empty range");
@@ -36,7 +36,6 @@ namespace fty {
         throw exception::TextBlockException("a range doesn't contain a Fortran block");
       }
       // The beginning (header) of a block is found if nothing is thrown till here
-
 
       // record the found header and advance iterator to the next position
       Block.first = CurrentItr++;
@@ -70,7 +69,7 @@ namespace fty {
     void removeEmptyBlocks(std::list<BlockT> &Blocks) {
 
       // NOTE: header + tail + at least one field
-      const size_t MIN_NUM_STRINGS = 3;
+      const size_t MIN_NUM_STRINGS = 2;
 
       std::vector<std::list<BlockT>::iterator> Deletees;
       for (auto Itr = Blocks.begin(); Itr != Blocks.end(); ++Itr) {

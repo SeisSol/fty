@@ -10,7 +10,8 @@ int main(int Argc, char *Argv[]) {
   }
 
   std::string FileName = Argv[1];
-  fty::Loader<fty::As_lowercase> Loader{};
+  //fty::Loader<fty::As_lowercase> Loader{};
+  fty::Loader<fty::As_original> Loader{};
   try {
     YAML::Node Params = Loader.load(FileName);
     std::cout << Params;

@@ -66,6 +66,7 @@ protected:
   StringsT m_TestContent;
 };
 
+
 TEST_F(CommentsAndEmptyLinesTest, removeEmptyLines) {
 
   StringProcessor Processor;

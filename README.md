@@ -66,3 +66,4 @@ int main(int Argc, char *Argv[]) {
   return 0;
 }
 ```
+See **CMakeLists.txt** as an example of compiling

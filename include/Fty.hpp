@@ -36,11 +36,9 @@ namespace fty {
         // a file can be parsed further. Recoverable error
       }
       catch (const exception::CriticalTextBlockException& Error) {
-        std::cout << Error.what() << std::endl;
         throw Error;
       }
       catch (const std::exception& Error) {
-        std::cout << Error.what() << std::endl;
         throw Error;
       }
       m_BlockProcessor.removeEmptyBlocks(Blocks);
@@ -82,11 +80,9 @@ namespace fty {
         Content = getFileAsStrings(FileName);
       }
       catch (const exception::FileException& Error) {
-        std::cerr << Error.what() << std::endl;
         throw Error;
       }
       catch (const std::exception& Error) {
-        std::cerr << Error.what() << std::endl;
         throw Error;
       }
 

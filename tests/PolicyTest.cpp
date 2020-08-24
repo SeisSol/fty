@@ -1,9 +1,9 @@
-#include "helper.hpp"
 #include "BlockParser.hpp"
 #include "FtyPolicies.hpp"
+#include "helper.hpp"
 #include "gtest/gtest.h"
-#include <yaml-cpp/yaml.h>
 #include <string>
+#include <yaml-cpp/yaml.h>
 
 using namespace fty;
 
@@ -22,10 +22,9 @@ protected:
   StringsT m_TestContent;
 };
 
-
 TEST_F(PolicyTests, LowercaseTest) {
   BlockT Block = make_block(m_TestContent);
-  BlockParser<As_lowercase> Processor;
+  BlockParser<AsLowercase> Processor;
 
   std::string Header = Processor.getHeader(Block);
   ASSERT_STREQ(Header.c_str(), "discretization");
@@ -36,10 +35,9 @@ TEST_F(PolicyTests, LowercaseTest) {
   ASSERT_STREQ(Node["cfl"].as<std::string>().c_str(), "0.5");
 }
 
-
 TEST_F(PolicyTests, UppercaseTest) {
   BlockT Block = make_block(m_TestContent);
-  BlockParser<As_uppercase> Processor;
+  BlockParser<AsUppercase> Processor;
 
   std::string Header = Processor.getHeader(Block);
   ASSERT_STREQ(Header.c_str(), "DISCRETIZATION");
@@ -50,10 +48,9 @@ TEST_F(PolicyTests, UppercaseTest) {
   ASSERT_STREQ(Node["CFL"].as<std::string>().c_str(), "0.5");
 }
 
-
 TEST_F(PolicyTests, OriginalPolicyTest) {
   BlockT Block = make_block(m_TestContent);
-  BlockParser<As_original> Processor;
+  BlockParser<AsOriginal> Processor;
 
   std::string Header = Processor.getHeader(Block);
   ASSERT_STREQ(Header.c_str(), "Discretization");

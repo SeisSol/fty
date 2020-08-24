@@ -1,6 +1,6 @@
 #include "Fty.hpp"
-#include <iostream>
 #include <cstdlib>
+#include <iostream>
 
 int main(int Argc, char *Argv[]) {
   if (Argc != 2) {
@@ -10,15 +10,13 @@ int main(int Argc, char *Argv[]) {
   }
 
   std::string FileName = Argv[1];
-  fty::Loader<fty::As_lowercase> Loader{};
+  fty::Loader<fty::AsLowercase> Loader{};
   try {
     YAML::Node Params = Loader.load(FileName);
     std::cout << Params << std::endl;
-  }
-  catch (const fty::exception::FileException& Error) {
+  } catch (const fty::exception::FileException &Error) {
     std::cerr << Error.what() << std::endl;
-  }
-  catch (const std::exception& Error) {
+  } catch (const std::exception &Error) {
     std::cerr << Error.what() << std::endl;
     throw Error;
   }

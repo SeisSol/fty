@@ -1,5 +1,5 @@
-#include "helper.hpp"
 #include "StringProcessor.h"
+#include "helper.hpp"
 #include "gtest/gtest.h"
 #include <string>
 
@@ -16,7 +16,6 @@ TEST(StartWithString, Found) {
   ASSERT_TRUE(Processor.startsWith(TestString, '&'));
 }
 
-
 TEST(StartWithString, NotFound) {
   StringProcessor Processor;
   std::string TestString;
@@ -31,7 +30,6 @@ TEST(StartWithString, NotFound) {
   ASSERT_FALSE(Processor.startsWith(TestString, '&'));
 }
 
-
 TEST(StartWithString, EmptyStrings) {
   StringProcessor Processor;
   std::string TestString{"\n"};
@@ -43,7 +41,6 @@ TEST(StartWithString, EmptyStrings) {
   TestString = "";
   ASSERT_FALSE(Processor.startsWith(TestString, '&'));
 }
-
 
 class CommentsAndEmptyLinesTest : public ::testing::Test {
 protected:
@@ -65,7 +62,6 @@ protected:
   StringsT m_Content;
   StringsT m_TestContent;
 };
-
 
 TEST_F(CommentsAndEmptyLinesTest, removeEmptyLines) {
 

@@ -1,33 +1,31 @@
 #ifndef FTY_CONVERTER_POLICIES_HPP
 #define FTY_CONVERTER_POLICIES_HPP
 
-#include <string>
 #include <algorithm>
+#include <string>
 
 namespace fty {
-  struct As_lowercase {
-    std::string apply(const std::string& String) {
-      std::string ConvertedString(String.size(), '\0');
-      std::transform(String.begin(), String.end(), ConvertedString.begin(),
-                     [](unsigned char Char) {return std::tolower(Char);});
-      return ConvertedString;
-    }
-  };
+struct AsLowercase {
+  std::string apply(const std::string &String) {
+    std::string ConvertedString(String.size(), '\0');
+    std::transform(String.begin(), String.end(), ConvertedString.begin(),
+                   [](unsigned char Char) { return std::tolower(Char); });
+    return ConvertedString;
+  }
+};
 
-  struct As_uppercase {
-    std::string apply(const std::string& String) {
-      std::string ConvertedString(String.size(), '\0');
-      std::transform(String.begin(), String.end(), ConvertedString.begin(),
-                     [](unsigned char Char) {return std::toupper(Char);});
-      return ConvertedString;
-    }
-  };
+struct AsUppercase {
+  std::string apply(const std::string &String) {
+    std::string ConvertedString(String.size(), '\0');
+    std::transform(String.begin(), String.end(), ConvertedString.begin(),
+                   [](unsigned char Char) { return std::toupper(Char); });
+    return ConvertedString;
+  }
+};
 
-  struct As_original {
-    std::string apply(const std::string& String) {
-      return String;
-    }
-  };
-}
+struct AsOriginal {
+  std::string apply(const std::string &String) { return String; }
+};
+} // namespace fty
 
-#endif //FTY_CONVERTER_POLICIES_HPP
+#endif // FTY_CONVERTER_POLICIES_HPP

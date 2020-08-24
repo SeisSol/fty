@@ -1,32 +1,30 @@
-#include "helper.hpp"
 #include "BlockParser.hpp"
 #include "FtyPolicies.hpp"
+#include "helper.hpp"
 #include "gtest/gtest.h"
-#include <yaml-cpp/yaml.h>
 #include <string>
+#include <yaml-cpp/yaml.h>
 
 using namespace fty;
 
 TEST(HeaderTest, HeaderWithWhitespaces) {
-  BlockParser<As_original> Processor;
+  BlockParser<AsOriginal> Processor;
   StringsT Content{{"  &  Discretization  "}, {"Order = 1"}};
   BlockT Block = make_block(Content);
   std::string Header = Processor.getHeader(Block);
   ASSERT_STREQ(Header.c_str(), "Discretization");
 }
 
-
 TEST(HeaderTest, HeaderWithComment) {
-  BlockParser<As_original> Processor;
+  BlockParser<AsOriginal> Processor;
   StringsT Content{{"&Discretization  ! Comment \n"}, {"Order = 1"}};
   BlockT Block = make_block(Content);
   std::string Header = Processor.getHeader(Block);
   ASSERT_STREQ(Header.c_str(), "Discretization");
 }
 
-
 TEST(InvalidHeaderTest, InvalidHeader) {
-  BlockParser<As_original> Processor;
+  BlockParser<AsOriginal> Processor;
   // forgotten '&' symbol
   StringsT Content{{"Discretization"}, {"Order = 1"}};
   BlockT Block = make_block(Content);
@@ -34,9 +32,8 @@ TEST(InvalidHeaderTest, InvalidHeader) {
   ASSERT_THROW(Processor.getHeader(Block), exception::CriticalTextBlockException);
 }
 
-
 TEST(InvalidBlockFieldTest, EmptyBlock) {
-  BlockParser<As_original> Processor;
+  BlockParser<AsOriginal> Processor;
   // forgotten '&' symbol
   StringsT Content{{"&Discretization"}, {"/"}};
   BlockT Block = make_block(Content);
@@ -44,9 +41,8 @@ TEST(InvalidBlockFieldTest, EmptyBlock) {
   ASSERT_THROW(Processor.getFields(Block), exception::CriticalTextBlockException);
 }
 
-
 TEST(InvalidBlockFieldTest, RepeatedFields) {
-  BlockParser<As_original> Processor;
+  BlockParser<AsOriginal> Processor;
   // forgotten '&' symbol
   StringsT Content{{"&Discretization"}, {"Order = 1"}, {"Order = 1"}, {"/"}};
   BlockT Block = make_block(Content);
@@ -54,9 +50,8 @@ TEST(InvalidBlockFieldTest, RepeatedFields) {
   ASSERT_THROW(Processor.getFields(Block), exception::CriticalKeyValueError);
 }
 
-
 TEST(InvalidBlockFieldTest, InvalidField) {
-  BlockParser<As_original> Processor;
+  BlockParser<AsOriginal> Processor;
   // forgotten '=' symbol
   StringsT Content{{"&Discretization"}, {"Order  1"}, {"/"}};
   BlockT Block = make_block(Content);
@@ -64,18 +59,17 @@ TEST(InvalidBlockFieldTest, InvalidField) {
   ASSERT_THROW(Processor.getFields(Block), exception::CriticalTextBlockException);
 }
 
-
 TEST(CorrectBlockTest, CorrectBlock) {
-  BlockParser<As_lowercase> Processor;
+  BlockParser<AsLowercase> Processor;
   // forgotten '=' symbol
   StringsT Content{{"&Discretization"},
-                    {"Order=1 "},
-                    {"Cfl = 0.5  \n"},
-                    {"OutputFile = \"output/tpv5\'"},
-                    {"InputFile = \'in_put-file/tpv5.txt\'  \n"},
-                    {"MASK1 =   0  1 0 1   0 1 "},
-                    {"MASK2 =1 0 1 0 0 1"},
-                    {"/"}};
+                   {"Order=1 "},
+                   {"Cfl = 0.5  \n"},
+                   {"OutputFile = \"output/tpv5\'"},
+                   {"InputFile = \'in_put-file/tpv5.txt\'  \n"},
+                   {"MASK1 =   0  1 0 1   0 1 "},
+                   {"MASK2 =1 0 1 0 0 1"},
+                   {"/"}};
   BlockT Block = make_block(Content);
 
   YAML::Node Node = Processor.getFields(Block);

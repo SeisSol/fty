@@ -5,8 +5,8 @@
 #include <string>
 
 namespace fty {
-  using StringsT = std::list<std::string>;
-  using BlockT = std::pair<StringsT::iterator, StringsT::iterator>;
-}
+using StringsT = std::list<std::string>;
+using BlockT = std::pair<StringsT::iterator, StringsT::iterator>;
+} // namespace fty
 
-#endif //PARSER_FTYDATATYPES_HPP
+#endif // PARSER_FTYDATATYPES_HPP

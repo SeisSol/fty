@@ -13,7 +13,7 @@ int main(int Argc, char *Argv[]) {
   fty::Loader<fty::As_lowercase> Loader{};
   try {
     YAML::Node Params = Loader.load(FileName);
-    std::cout << Params;
+    std::cout << Params << std::endl;
   }
   catch (const fty::exception::FileException& Error) {
     std::cerr << Error.what() << std::endl;

@@ -69,7 +69,7 @@ namespace fty {
     void removeEmptyBlocks(std::list<BlockT> &Blocks) {
 
       // NOTE: header + tail + at least one field
-      const size_t MIN_NUM_STRINGS = 2;
+      const std::list<BlockT>::iterator::difference_type MIN_NUM_STRINGS = 2;
 
       std::vector<std::list<BlockT>::iterator> Deletees;
       for (auto Itr = Blocks.begin(); Itr != Blocks.end(); ++Itr) {

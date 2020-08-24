@@ -13,7 +13,7 @@ template <typename ListT>
 class Scroll {
 public:
   Scroll(const ListT& Content) : m_Content(Content) {};
-  typename ListT::value_type operator[](int Index) {
+  typename ListT::value_type operator[](size_t Index) {
     assert(Index < m_Content.size() && "Index is out of the range");
     return *(std::next(m_Content.begin(), Index));
   }

@@ -17,7 +17,7 @@ The library offers several base policies for storing keys in a generated hash ta
 
 | Name         	| Description                                      	|
 |--------------	|--------------------------------------------------	|
-| AsOrigin    	| stores keys as it is given in an input file/list 	|
+| AsOriginal   	| stores keys as it is given in an input file/list 	|
 | AsUppercase 	| converts all keys to upper-case                  	|
 | AsLowercase 	| converts all keys to lower-case                  	|
 

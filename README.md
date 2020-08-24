@@ -17,9 +17,9 @@ The library offers several base policies for storing keys in a generated hash ta
 
 | Name         	| Description                                      	|
 |--------------	|--------------------------------------------------	|
-| As_default   	| stores keys as it is given in an input file/list 	|
-| As_uppercase 	| converts all keys to upper-case                  	|
-| As_lowercase 	| converts all keys to lower-case                  	|
+| AsOrigin    	| stores keys as it is given in an input file/list 	|
+| AsUppercase 	| converts all keys to upper-case                  	|
+| AsLowercase 	| converts all keys to lower-case                  	|
 
 If none of the policies fit to your particular problem you can provide yours by defining and providing a class to either *fty::Loader* or *fty::Converter*
 
@@ -51,7 +51,7 @@ int main(int Argc, char *Argv[]) {
   }
 
   std::string FileName = Argv[1];
-  fty::Loader<fty::As_lowercase> Loader{};
+  fty::Loader<fty::AsLowercase> Loader{};
   try {
     YAML::Node Params = Loader.load(FileName);
     std::cout << Params;

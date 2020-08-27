@@ -37,10 +37,17 @@ public:
 
         if (!Fields[Identifier]) {
 
-          // remove quotes if any
+          // remove quotes if any or adjust legacy fortran floating point format
           std::smatch SubMatch;
-          Fields[Identifier] =
-              (std::regex_match(ValueStr, SubMatch, m_QuotedValueExpr)) ? SubMatch[2] : ValueStr;
+          if (std::regex_match(ValueStr, SubMatch, m_QuotedValueExpr)) {
+            Fields[Identifier] = std::string(SubMatch[2]);
+          }
+          else if (std::regex_match(ValueStr, SubMatch, m_LegacyFortranFloatExpr)) {
+            Fields[Identifier] = std::regex_replace(ValueStr, m_LegacyFortranFloatExpr, "$1e$3");
+          }
+          else {
+            Fields[Identifier] = ValueStr;
+          }
         } else {
           // means that we found an identical filed in a block
           std::stringstream Stream;
@@ -65,6 +72,7 @@ private:
   std::regex m_FieldExpr{"\\s*(\\w*)\\s*=\\s*((?:\\w|[[:punct:]])(?:(?:\\w|[[:punct:]]|\\s)*(?:\\w|"
                          "[[:punct:]]))?)\\s*"};
   std::regex m_QuotedValueExpr{"^(\'|\")+(.*)(\'|\")+$"};
+  std::regex m_LegacyFortranFloatExpr{"^(\\d*\\.?\\d*)(D|d)([\\+-]\\d+)$"}; // 'D' or 'd' instead of 'E' or 'e'
   Policy m_KeyModifier;
 };
 } // namespace fty

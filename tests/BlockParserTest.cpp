@@ -80,3 +80,37 @@ TEST(CorrectBlockTest, CorrectBlock) {
   ASSERT_STREQ(Node["mask1"].as<std::string>().c_str(), "0  1 0 1   0 1");
   ASSERT_STREQ(Node["mask2"].as<std::string>().c_str(), "1 0 1 0 0 1");
 }
+
+TEST(FloatingPointField, StandardNotaion) {
+  BlockParser<AsOriginal> Processor;
+  StringsT Content{{"&Block1"},
+                   {"Epsilon1 = 1.01e-10"},
+                   {"Epsilon2 = 1.01e+10"},
+                   {"Epsilon3 = 1.01E-10"},
+                   {"Epsilon4 = 1.01E+10"},
+                   {"/"}};
+  BlockT Block = make_block(Content);
+
+  YAML::Node Node = Processor.getFields(Block);
+  ASSERT_DOUBLE_EQ(Node["Epsilon1"].as<double>(), 1.01e-10);
+  ASSERT_FLOAT_EQ(Node["Epsilon2"].as<float>(), 1.01e+10f);
+  ASSERT_DOUBLE_EQ(Node["Epsilon3"].as<double>(), 1.01E-10);
+  ASSERT_FLOAT_EQ(Node["Epsilon4"].as<float>(), 1.01E+10f);
+}
+
+TEST(FloatingPointField, FortranNotaion) {
+  BlockParser<AsOriginal> Processor;
+  StringsT Content{{"&Block1"},
+                   {"Epsilon1=1.01d-10"},
+                   {"Epsilon2=1.01d+10"},
+                   {"Epsilon3=1.01D-10"},
+                   {"Epsilon4=1.01D+10"},
+                   {"/"}};
+  BlockT Block = make_block(Content);
+
+  YAML::Node Node = Processor.getFields(Block);
+  ASSERT_DOUBLE_EQ(Node["Epsilon1"].as<double>(), 1.01e-10);
+  ASSERT_FLOAT_EQ(Node["Epsilon2"].as<float>(), 1.01e+10f);
+  ASSERT_DOUBLE_EQ(Node["Epsilon3"].as<double>(), 1.01e-10);
+  ASSERT_FLOAT_EQ(Node["Epsilon4"].as<float>(), 1.01e+10f);
+}

@@ -1,4 +1,4 @@
-#include "Fty.hpp"
+#include "fty.hpp"
 #include <cstdlib>
 #include <iostream>
 

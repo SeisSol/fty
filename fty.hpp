@@ -1,11 +1,11 @@
 #ifndef FTY_CONVERTER_FTY_HPP
 #define FTY_CONVERTER_FTY_HPP
 
-#include "BlockParser.hpp"
-#include "BlockProcessor.hpp"
-#include "FtyInternals.hpp"
-#include "FtyPolicies.hpp"
-#include "StringProcessor.h"
+#include "include/BlockParser.hpp"
+#include "include/BlockProcessor.hpp"
+#include "include/FtyInternals.hpp"
+#include "include/FtyPolicies.hpp"
+#include "include/StringProcessor.h"
 #include <fstream>
 #include <iostream>
 

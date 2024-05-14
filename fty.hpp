@@ -1,11 +1,14 @@
 #ifndef FTY_CONVERTER_FTY_HPP
 #define FTY_CONVERTER_FTY_HPP
 
+// IWYU pragma: begin_exports
 #include "include/BlockParser.hpp"
 #include "include/BlockProcessor.hpp"
 #include "include/FtyInternals.hpp"
 #include "include/FtyPolicies.hpp"
 #include "include/StringProcessor.h"
+// IWYU pragma: end_exports
+
 #include <fstream>
 #include <iostream>
 

@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2020-2022 Ravil Dorozhinskii
+//
+// SPDX-License-Identifier: MIT
+
 #include "fty.hpp"
 #include <cstdlib>
 #include <iostream>

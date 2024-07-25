@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2020-2023 Ravil Dorozhinskii
+#
+# SPDX-License-Identifier: MIT
+
 cmake_minimum_required(VERSION 3.5)
 project(testing)
 

@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2020-2023 Ravil Dorozhinskii
+//
+// SPDX-License-Identifier: MIT
+
 #include "BlockParser.hpp"
 #include "FtyPolicies.hpp"
 #include "helper.hpp"

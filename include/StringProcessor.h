@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2020-2023 Ravil Dorozhinskii
+//
+// SPDX-License-Identifier: MIT
+
 #ifndef FTY_CONVERTER_STRINGPROCESSOR_H
 #define FTY_CONVERTER_STRINGPROCESSOR_H
 

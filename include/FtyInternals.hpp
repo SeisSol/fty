@@ -1,3 +1,8 @@
+// SPDX-FileCopyrightText: 2020-2023 Ravil Dorozhinskii
+// SPDX-FileCopyrightText: 2024 SeisSol Group
+//
+// SPDX-License-Identifier: MIT
+
 #ifndef PARSER_FTY_H
 #define PARSER_FTY_H
 

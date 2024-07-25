@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2020-2023 Ravil Dorozhinskii
+//
+// SPDX-License-Identifier: MIT
+
 #ifndef PARSER_FTYEXCEPTIONS_HPP
 #define PARSER_FTYEXCEPTIONS_HPP
 

@@ -11,7 +11,7 @@
 
 using namespace fty;
 
-bool isEqualBlocks(const BlockT &Left, const BlockT &Right) {
+bool isEqualBlocks(const BlockT& Left, const BlockT& Right) {
   auto LeftSize = std::distance(Left.first, std::next(Left.second));
   auto RightSize = std::distance(Right.first, std::next(Right.second));
   if (LeftSize != RightSize) {

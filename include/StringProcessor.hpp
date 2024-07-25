@@ -10,14 +10,14 @@
 
 namespace fty {
 class StringProcessor {
-public:
+  public:
   /**
    * Checks whether the given line starts with 'Character'
    * @param String tests string
    * @param Character tests character
    * @return true if the string starts with 'Character'. Otherwise, false
    */
-  bool startsWith(const std::string &String, const char Character) {
+  bool startsWith(const std::string& String, const char Character) {
     auto CurrentChar = String.begin();
 
     // find the first non-white-space character
@@ -28,9 +28,9 @@ public:
     return ((*CurrentChar) == Character) && (CurrentChar != String.end());
   }
 
-  void removeComments(StringsT &Content) {
+  void removeComments(StringsT& Content) {
 
-    for (auto &Item : Content) {
+    for (auto& Item : Content) {
       std::smatch Match;
       if (std::regex_match(Item, Match, m_Comment_Expr)) {
         Item = Match[1];
@@ -38,10 +38,10 @@ public:
     }
   }
 
-  void removeEmptyLines(StringsT &Content) {
+  void removeEmptyLines(StringsT& Content) {
 
     const std::string WHITESPACE = " \n\r\t\f\v";
-    auto isEmptyString = [&WHITESPACE](const std::string &String) -> bool {
+    auto isEmptyString = [&WHITESPACE](const std::string& String) -> bool {
       size_t Start = String.find_first_not_of(WHITESPACE);
       return Start == std::string::npos;
     };
@@ -52,12 +52,12 @@ public:
         Deletees.push_back(Itr);
     }
 
-    for (auto &Itr : Deletees) {
+    for (auto& Itr : Deletees) {
       Content.erase(Itr);
     }
   }
 
-private:
+  private:
   std::regex m_Comment_Expr{"^([^!]*)!.*\\s?$"};
 };
 } // namespace fty

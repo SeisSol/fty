@@ -11,11 +11,12 @@
 
 namespace fty {
 
-template <typename Policy> class BlockParser {
-public:
-  std::string getHeader(const BlockT &Block) {
+template <typename Policy>
+class BlockParser {
+  public:
+  std::string getHeader(const BlockT& Block) {
     std::smatch Match;
-    const std::string &Header = *Block.first;
+    const std::string& Header = *Block.first;
     if (std::regex_match(Header, Match, m_HeaderExpr)) {
       return m_KeyModifier.apply(Match[1]);
     } else {
@@ -23,7 +24,7 @@ public:
     }
   }
 
-  YAML::Node getFields(const BlockT &Block) {
+  YAML::Node getFields(const BlockT& Block) {
     YAML::Node Fields;
 
     auto Itr = next(Block.first); // the header
@@ -45,11 +46,9 @@ public:
           std::smatch SubMatch;
           if (std::regex_match(ValueStr, SubMatch, m_QuotedValueExpr)) {
             Fields[Identifier] = std::string(SubMatch[2]);
-          }
-          else if (std::regex_match(ValueStr, SubMatch, m_LegacyFortranFloatExpr)) {
+          } else if (std::regex_match(ValueStr, SubMatch, m_LegacyFortranFloatExpr)) {
             Fields[Identifier] = std::regex_replace(ValueStr, m_LegacyFortranFloatExpr, "$1e$2");
-          }
-          else {
+          } else {
             Fields[Identifier] = ValueStr;
           }
         } else {
@@ -71,12 +70,13 @@ public:
     return Fields;
   }
 
-private:
+  private:
   std::regex m_HeaderExpr{"^\\s*&\\s*(\\w*)\\s*.*\\s?"};
   std::regex m_FieldExpr{"\\s*(\\w*)\\s*=\\s*((?:\\w|[[:punct:]])(?:(?:\\w|[[:punct:]]|\\s)*(?:\\w|"
                          "[[:punct:]]))?)\\s*"};
   std::regex m_QuotedValueExpr{"^(\'|\")+(.*)(\'|\")+$"};
-  std::regex m_LegacyFortranFloatExpr{"^(\\d*\\.?\\d*)(?:D|d)([\\+-]?\\d+)$"}; // 'D' or 'd' instead of 'E' or 'e'
+  std::regex m_LegacyFortranFloatExpr{
+      "^(\\d*\\.?\\d*)(?:D|d)([\\+-]?\\d+)$"}; // 'D' or 'd' instead of 'E' or 'e'
   Policy m_KeyModifier;
 };
 } // namespace fty

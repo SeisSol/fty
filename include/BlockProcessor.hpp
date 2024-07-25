@@ -12,7 +12,7 @@
 namespace fty {
 
 class BlockProcessor {
-public:
+  public:
   /**
    * Finds a block given the beginning, end, comment symbols of a block. 'Bigin' iterator will be
    * modified which will point to the next line after the end block symbol
@@ -23,7 +23,7 @@ public:
    * a block
    * @return a list of string which contains a block
    */
-  BlockT getNextBlock(StringsT::iterator &CurrentItr, const StringsT::iterator End) {
+  BlockT getNextBlock(StringsT::iterator& CurrentItr, const StringsT::iterator End) {
     BlockT Block;
     const char BlockBeginChar = '&';
     const char BlockEndChar = '/';
@@ -72,7 +72,7 @@ public:
     return Block;
   }
 
-  void removeEmptyBlocks(std::list<BlockT> &Blocks) {
+  void removeEmptyBlocks(std::list<BlockT>& Blocks) {
 
     // NOTE: header + tail + at least one field
     const std::list<BlockT>::iterator::difference_type MIN_NUM_STRINGS = 2;
@@ -84,12 +84,12 @@ public:
       }
     }
 
-    for (auto &Deletee : Deletees) {
+    for (auto& Deletee : Deletees) {
       Blocks.erase(Deletee);
     }
   }
 
-private:
+  private:
   StringProcessor m_StringProcessor;
 };
 } // namespace fty

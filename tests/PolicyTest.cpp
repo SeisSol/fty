@@ -12,7 +12,7 @@
 using namespace fty;
 
 class PolicyTests : public ::testing::Test {
-protected:
+  protected:
   void SetUp() override {
     m_Content.push_back("&Discretization\n");
     m_Content.push_back("Order = 4\n");

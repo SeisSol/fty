@@ -6,7 +6,7 @@
 #define FTY_CONVERTER_BLOCKPROCESSOR_HPP
 
 #include "FtyInternals.hpp"
-#include "StringProcessor.h"
+#include "StringProcessor.hpp"
 #include <iostream>
 
 namespace fty {

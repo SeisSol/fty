@@ -11,7 +11,7 @@
 #include "include/BlockProcessor.hpp"
 #include "include/FtyInternals.hpp"
 #include "include/FtyPolicies.hpp"
-#include "include/StringProcessor.h"
+#include "include/StringProcessor.hpp"
 // IWYU pragma: end_exports
 
 #include <fstream>

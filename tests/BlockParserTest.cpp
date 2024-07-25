@@ -102,19 +102,29 @@ TEST(FloatingPointField, StandardNotaion) {
   ASSERT_FLOAT_EQ(Node["Epsilon4"].as<float>(), 1.01E+10f);
 }
 
-TEST(FloatingPointField, FortranNotaion) {
+TEST(FloatingPointField, FortranNotation) {
   BlockParser<AsOriginal> Processor;
   StringsT Content{{"&Block1"},
                    {"Epsilon1=1.01d-10"},
                    {"Epsilon2=1.01d+10"},
                    {"Epsilon3=1.01D-10"},
                    {"Epsilon4=1.01D+10"},
+                   {"Epsilon5=1.01d10"},
+                   {"Epsilon6=1.01D10"},
+                   {"Epsilon7=1d10"},
+                   {"Epsilon8=1D10"},
                    {"/"}};
   BlockT Block = make_block(Content);
 
   YAML::Node Node = Processor.getFields(Block);
+
+  // (note that the assignment to float/double here is more or less randomly-chosen)
   ASSERT_DOUBLE_EQ(Node["Epsilon1"].as<double>(), 1.01e-10);
   ASSERT_FLOAT_EQ(Node["Epsilon2"].as<float>(), 1.01e+10f);
   ASSERT_DOUBLE_EQ(Node["Epsilon3"].as<double>(), 1.01e-10);
   ASSERT_FLOAT_EQ(Node["Epsilon4"].as<float>(), 1.01e+10f);
+  ASSERT_DOUBLE_EQ(Node["Epsilon5"].as<double>(), 1.01e10);
+  ASSERT_FLOAT_EQ(Node["Epsilon6"].as<float>(), 1.01e10f);
+  ASSERT_DOUBLE_EQ(Node["Epsilon7"].as<double>(), 1e10);
+  ASSERT_FLOAT_EQ(Node["Epsilon8"].as<float>(), 1e10f);
 }

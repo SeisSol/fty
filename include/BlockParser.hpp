@@ -47,7 +47,7 @@ public:
             Fields[Identifier] = std::string(SubMatch[2]);
           }
           else if (std::regex_match(ValueStr, SubMatch, m_LegacyFortranFloatExpr)) {
-            Fields[Identifier] = std::regex_replace(ValueStr, m_LegacyFortranFloatExpr, "$1e$3");
+            Fields[Identifier] = std::regex_replace(ValueStr, m_LegacyFortranFloatExpr, "$1e$2");
           }
           else {
             Fields[Identifier] = ValueStr;
@@ -76,7 +76,7 @@ private:
   std::regex m_FieldExpr{"\\s*(\\w*)\\s*=\\s*((?:\\w|[[:punct:]])(?:(?:\\w|[[:punct:]]|\\s)*(?:\\w|"
                          "[[:punct:]]))?)\\s*"};
   std::regex m_QuotedValueExpr{"^(\'|\")+(.*)(\'|\")+$"};
-  std::regex m_LegacyFortranFloatExpr{"^(\\d*\\.?\\d*)(D|d)([\\+-]\\d+)$"}; // 'D' or 'd' instead of 'E' or 'e'
+  std::regex m_LegacyFortranFloatExpr{"^(\\d*\\.?\\d*)(?:D|d)([\\+-]?\\d+)$"}; // 'D' or 'd' instead of 'E' or 'e'
   Policy m_KeyModifier;
 };
 } // namespace fty

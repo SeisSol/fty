@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MIT
 
-#include "StringProcessor.h"
+#include "StringProcessor.hpp"
 #include "helper.hpp"
 #include "gtest/gtest.h"
 #include <string>
@@ -47,7 +47,7 @@ TEST(StartWithString, EmptyStrings) {
 }
 
 class CommentsAndEmptyLinesTest : public ::testing::Test {
-protected:
+  protected:
   void SetUp() override {
     m_Content.push_back("\n");
     m_Content.push_back("   ");

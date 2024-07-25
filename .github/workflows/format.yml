@@ -28,9 +28,8 @@ jobs:
           which clang-format
 
           # cf. https://stackoverflow.com/a/36046965
-          find ./ -iname '*.(h|hpp|c|cpp)' | xargs clang-format -i
-          find include/ -iname '*.(h|hpp|c|cpp)' | xargs clang-format -i
-          find tests/ -iname '*.(h|hpp|c|cpp)' | xargs clang-format -i
+          find ./include -iname '*.hpp' | xargs clang-format -i
+          find ./tests -iname '*.cpp' | xargs clang-format -i
           
           git diff > formatting.patch
           cat formatting.patch 

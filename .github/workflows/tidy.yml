@@ -39,7 +39,7 @@ jobs:
           git submodule update --init
           cd tests
           mkdir -p build && cd build
-          cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+          cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -GNinja
           ninja
           sed -i 's/-fprofile-abs-path //g' compile_commands.json
           run-clang-tidy ../ ./ -clang-tidy-binary=$(which clang-tidy-18) -quiet -j $(nproc)

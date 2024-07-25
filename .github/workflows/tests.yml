@@ -24,6 +24,7 @@ jobs:
         run: |
           cd /usr/src/googletest/googletest
           sudo cmake ./CMakeLists.txt -Dgtest_disable_pthreads=ON -GNinja
+          sudo ninja
           sudo ninja install
 
       - name: build

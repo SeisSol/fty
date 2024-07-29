@@ -3,8 +3,8 @@
 //
 // SPDX-License-Identifier: MIT
 
-#ifndef PARSER_FTY_H
-#define PARSER_FTY_H
+#ifndef PARSER_FTY_HPP
+#define PARSER_FTY_HPP
 
 // IWYU pragma: begin_exports
 #include "FtyDataTypes.hpp"
@@ -13,4 +13,4 @@
 
 #include <yaml-cpp/yaml.h>
 
-#endif // PARSER_FTY_H
+#endif // PARSER_FTY_HPP

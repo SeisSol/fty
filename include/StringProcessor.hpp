@@ -2,8 +2,8 @@
 //
 // SPDX-License-Identifier: MIT
 
-#ifndef FTY_CONVERTER_STRINGPROCESSOR_H
-#define FTY_CONVERTER_STRINGPROCESSOR_H
+#ifndef FTY_CONVERTER_STRINGPROCESSOR_HPP
+#define FTY_CONVERTER_STRINGPROCESSOR_HPP
 
 #include "FtyInternals.hpp"
 #include <regex>
@@ -62,4 +62,4 @@ class StringProcessor {
 };
 } // namespace fty
 
-#endif // FTY_CONVERTER_STRINGPROCESSOR_H
+#endif // FTY_CONVERTER_STRINGPROCESSOR_HPP

@@ -27,7 +27,7 @@ jobs:
           sudo ninja
 
           # ninja install was not found
-          sudo cp *.a /usr/lib
+          sudo cp lib/*.a /usr/lib
 
       - name: build
         run: |

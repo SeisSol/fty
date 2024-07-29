@@ -9,6 +9,7 @@
 #include "gtest/gtest.h"
 #include <iostream>
 #include <iterator>
+#include <list>
 #include <yaml-cpp/yaml.h>
 
 using namespace fty;

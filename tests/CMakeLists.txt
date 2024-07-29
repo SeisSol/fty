@@ -16,7 +16,7 @@ add_executable(tests ./main.cpp
                      ./BlockProcessorTest.cpp)
 
 
-target_compile_options(tests PRIVATE "-std=c++11")
+target_compile_options(tests PRIVATE "-std=c++14")
 target_include_directories(tests PRIVATE ${YAML_CPP_INCLUDE_DIR} ${GTEST_INCLUDE_DIRS} ../include)
 target_link_libraries(tests PRIVATE ${YAML_CPP_LIBRARIES} ${GTEST_LIBRARIES})
 target_compile_options(tests PRIVATE -Wall -Wextra -pedantic -Werror)

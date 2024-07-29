@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: MIT
 
 #include "StringProcessor.hpp"
+#include "helper.hpp"
 #include "gtest/gtest.h"
 #include <string>
 

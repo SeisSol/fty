@@ -36,7 +36,7 @@ CheckOptions:
 #  - key:             readability-identifier-naming.ClassMethodSuffix
 #    value:           CamelCase
   - key:             readability-identifier-naming.ConstantCase
-    value:           camelBack
+    value:           CamelCase
 #  - key:             readability-identifier-naming.ConstantPrefix
 #    value:           CamelCase
 #  - key:             readability-identifier-naming.ConstantSuffix
@@ -72,7 +72,7 @@ CheckOptions:
 #  - key:             readability-identifier-naming.ConstexprMethodSuffix
 #    value:           CamelCase
   - key:             readability-identifier-naming.ConstexprVariableCase
-    value:           camelBack
+    value:           CamelCase
 #  - key:             readability-identifier-naming.ConstexprVariablePrefix
 #    value:           CamelCase
 #  - key:             readability-identifier-naming.ConstexprVariableSuffix
@@ -134,7 +134,7 @@ CheckOptions:
 #  - key:             readability-identifier-naming.InlineNamespaceSuffix
 #    value:           CamelCase
   - key:             readability-identifier-naming.LocalConstantCase
-    value:           camelBack
+    value:           CamelCase
 #  - key:             readability-identifier-naming.LocalConstantPrefix
 #    value:           CamelCase
 #  - key:             readability-identifier-naming.LocalConstantSuffix
@@ -152,15 +152,15 @@ CheckOptions:
 #  - key:             readability-identifier-naming.LocalPointerSuffix
 #    value:           CamelCase
   - key:             readability-identifier-naming.LocalVariableCase
-    value:           camelBack
+    value:           CamelCase
 #  - key:             readability-identifier-naming.LocalVariablePrefix
 #    value:           CamelCase
 #  - key:             readability-identifier-naming.LocalVariableSuffix
 #    value:           CamelCase
   - key:             readability-identifier-naming.MemberCase
-    value:           camelBack
+    value:           CamelCase
   - key:             readability-identifier-naming.MemberPrefix
-    value:           ""
+    value:           "m_"
 #  - key:             readability-identifier-naming.MemberSuffix
 #    value:           CamelCase
 #  - key:             readability-identifier-naming.MethodCase
@@ -176,7 +176,7 @@ CheckOptions:
 #  - key:             readability-identifier-naming.NamespaceSuffix
 #    value:           CamelCase
   - key:             readability-identifier-naming.ParameterCase
-    value:           camelBack
+    value:           CamelCase
 #  - key:             readability-identifier-naming.ParameterPrefix
 #    value:           CamelCase
 #  - key:             readability-identifier-naming.ParameterSuffix
@@ -290,7 +290,7 @@ CheckOptions:
 #  - key:             readability-identifier-naming.ValueTemplateParameterSuffix
 #    value:           CamelCase
   - key:             readability-identifier-naming.VariableCase
-    value:           camelBack
+    value:           CamelCase
 #  - key:             readability-identifier-naming.VariablePrefix
 #    value:           CamelCase
 #  - key:             readability-identifier-naming.VariableSuffix
@@ -304,4 +304,4 @@ CheckOptions:
 
     # ignore Eigen, fty manually, until added to IWYU
   - key:             misc-include-cleaner.IgnoreHeaders
-    value:           'Eigen/src/.*'
+    value:           'yaml-cpp/.*'

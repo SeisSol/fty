@@ -28,10 +28,10 @@ class PolicyTests : public ::testing::Test {
 };
 
 TEST_F(PolicyTests, LowercaseTest) {
-  BlockT Block = make_block(m_TestContent);
+  const BlockT Block = make_block(m_TestContent);
   BlockParser<AsLowercase> Processor;
 
-  std::string Header = Processor.getHeader(Block);
+  const std::string Header = Processor.getHeader(Block);
   ASSERT_STREQ(Header.c_str(), "discretization");
 
   YAML::Node Node = Processor.getFields(Block);
@@ -41,10 +41,10 @@ TEST_F(PolicyTests, LowercaseTest) {
 }
 
 TEST_F(PolicyTests, UppercaseTest) {
-  BlockT Block = make_block(m_TestContent);
+  const BlockT Block = make_block(m_TestContent);
   BlockParser<AsUppercase> Processor;
 
-  std::string Header = Processor.getHeader(Block);
+  const std::string Header = Processor.getHeader(Block);
   ASSERT_STREQ(Header.c_str(), "DISCRETIZATION");
 
   YAML::Node Node = Processor.getFields(Block);
@@ -54,10 +54,10 @@ TEST_F(PolicyTests, UppercaseTest) {
 }
 
 TEST_F(PolicyTests, OriginalPolicyTest) {
-  BlockT Block = make_block(m_TestContent);
+  const BlockT Block = make_block(m_TestContent);
   BlockParser<AsOriginal> Processor;
 
-  std::string Header = Processor.getHeader(Block);
+  const std::string Header = Processor.getHeader(Block);
   ASSERT_STREQ(Header.c_str(), "Discretization");
 
   YAML::Node Node = Processor.getFields(Block);

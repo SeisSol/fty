@@ -8,6 +8,7 @@
 #include "helper.hpp"
 #include "gtest/gtest.h"
 #include <iostream>
+#include <iterator>
 #include <yaml-cpp/yaml.h>
 
 using namespace fty;
@@ -44,7 +45,7 @@ TEST(BlockProcessorTest, RemoveEmptyBlocks) {
   Factory.add({{"&Empty"}, {"/"}});
 
   const StringsT Content = Factory.getContent();
-  std::list<BlockT> Blocks = Factory.getBlocks();
+  const std::list<BlockT> Blocks = Factory.getBlocks();
 
   BlockFactory TestFactory = Factory;
   const StringsT TestContent = TestFactory.getContent();
@@ -93,7 +94,7 @@ TEST(BlockProcessorTest, EndsWithoutTerminator) {
   Factory.add({{"&Empty"}, {"Dummy = 1"}});
 
   StringsT Content = Factory.getContent();
-  std::list<BlockT> Blocks = Factory.getBlocks();
+  const std::list<BlockT> Blocks = Factory.getBlocks();
 
   auto Begin = Content.begin();
   auto End = Content.end();
@@ -113,7 +114,7 @@ TEST(BlockProcessorTest, EmptyLinesAfterLastBlock) {
   Factory.add({{""}, {"\n"}});
 
   StringsT Content = Factory.getContent();
-  std::list<BlockT> Blocks = Factory.getBlocks();
+  const std::list<BlockT> Blocks = Factory.getBlocks();
 
   auto Begin = Content.begin();
   auto End = Content.end();

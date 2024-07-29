@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: MIT
 
 #include "BlockParser.hpp"
+#include "FtyDataTypes.hpp"
+#include "FtyExceptions.hpp"
 #include "FtyPolicies.hpp"
 #include "helper.hpp"
 #include "gtest/gtest.h"

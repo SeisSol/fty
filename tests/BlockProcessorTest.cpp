@@ -3,10 +3,11 @@
 // SPDX-License-Identifier: MIT
 
 #include "BlockProcessor.hpp"
-#include "FtyPolicies.hpp"
+#include "FtyDataTypes.hpp"
+#include "FtyExceptions.hpp"
 #include "helper.hpp"
 #include "gtest/gtest.h"
-#include <string>
+#include <iostream>
 #include <yaml-cpp/yaml.h>
 
 using namespace fty;
@@ -21,7 +22,7 @@ bool isEqualBlocks(const BlockT& Left, const BlockT& Right) {
 
   auto LeftItr = Left.first;
   auto RightItr = Right.first;
-  for (int i = 0; i < LeftSize; ++i, ++LeftItr, ++RightItr) {
+  for (int I = 0; I < LeftSize; ++I, ++LeftItr, ++RightItr) {
     if ((*LeftItr) != (*RightItr)) {
       std::cout << "Left: " << *LeftItr << "; Right: " << *RightItr << ";" << std::endl;
       return false;
@@ -42,11 +43,11 @@ TEST(BlockProcessorTest, RemoveEmptyBlocks) {
   Factory.add({{"&Boundaries"}, {"Order=1 "}, {"BC_fs = 1.5"}, {"BC_of = 1"}, {"/"}});
   Factory.add({{"&Empty"}, {"/"}});
 
-  StringsT Content = Factory.getContent();
+  const StringsT Content = Factory.getContent();
   std::list<BlockT> Blocks = Factory.getBlocks();
 
   BlockFactory TestFactory = Factory;
-  StringsT TestContent = TestFactory.getContent();
+  const StringsT TestContent = TestFactory.getContent();
   std::list<BlockT> TestBlocks = TestFactory.getBlocks();
 
   Processor.removeEmptyBlocks(TestBlocks);
@@ -96,7 +97,7 @@ TEST(BlockProcessorTest, EndsWithoutTerminator) {
 
   auto Begin = Content.begin();
   auto End = Content.end();
-  BlockT ValidBlock = Processor.getNextBlock(Begin, End);
+  const BlockT ValidBlock = Processor.getNextBlock(Begin, End);
   ASSERT_TRUE(isEqualBlocks(ValidBlock, BlockScroll(Blocks)[0]));
   ASSERT_THROW(Processor.getNextBlock(Begin, End), exception::CriticalTextBlockException);
 }
@@ -116,7 +117,7 @@ TEST(BlockProcessorTest, EmptyLinesAfterLastBlock) {
 
   auto Begin = Content.begin();
   auto End = Content.end();
-  BlockT ValidBlock = Processor.getNextBlock(Begin, End);
+  const BlockT ValidBlock = Processor.getNextBlock(Begin, End);
   ASSERT_TRUE(isEqualBlocks(ValidBlock, BlockScroll(Blocks)[1]));
   ASSERT_THROW(Processor.getNextBlock(Begin, End), exception::TextBlockException);
 }

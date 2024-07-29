@@ -38,7 +38,7 @@ class BlockParser {
       std::smatch Match;
       if (std::regex_match(*Itr, Match, m_FieldExpr)) {
         std::string Identifier = m_KeyModifier.apply(Match[1]);
-        std::string ValueStr = Match[2];
+        const std::string ValueStr = Match[2];
 
         if (!Fields[Identifier]) {
 

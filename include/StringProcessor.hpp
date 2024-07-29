@@ -32,7 +32,7 @@ class StringProcessor {
 
     for (auto& Item : Content) {
       std::smatch Match;
-      if (std::regex_match(Item, Match, m_Comment_Expr)) {
+      if (std::regex_match(Item, Match, m_CommentExpr)) {
         Item = Match[1];
       }
     }
@@ -41,14 +41,14 @@ class StringProcessor {
   void removeEmptyLines(StringsT& Content) {
 
     const std::string WHITESPACE = " \n\r\t\f\v";
-    auto isEmptyString = [&WHITESPACE](const std::string& String) -> bool {
-      size_t Start = String.find_first_not_of(WHITESPACE);
+    auto IsEmptyString = [&WHITESPACE](const std::string& String) -> bool {
+      const size_t Start = String.find_first_not_of(WHITESPACE);
       return Start == std::string::npos;
     };
 
     std::vector<StringsT::iterator> Deletees;
     for (auto Itr = Content.begin(); Itr != Content.end(); ++Itr) {
-      if (isEmptyString(*Itr))
+      if (IsEmptyString(*Itr))
         Deletees.push_back(Itr);
     }
 
@@ -58,7 +58,7 @@ class StringProcessor {
   }
 
   private:
-  std::regex m_Comment_Expr{"^([^!]*)!.*\\s?$"};
+  std::regex m_CommentExpr{"^([^!]*)!.*\\s?$"};
 };
 } // namespace fty
 

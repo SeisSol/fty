@@ -75,11 +75,11 @@ class BlockProcessor {
   void removeEmptyBlocks(std::list<BlockT>& Blocks) {
 
     // NOTE: header + tail + at least one field
-    const std::list<BlockT>::iterator::difference_type MIN_NUM_STRINGS = 2;
+    const std::list<BlockT>::iterator::difference_type MinNumStrings = 2;
 
     std::vector<std::list<BlockT>::iterator> Deletees;
     for (auto Itr = Blocks.begin(); Itr != Blocks.end(); ++Itr) {
-      if (std::distance(Itr->first, Itr->second) < MIN_NUM_STRINGS) {
+      if (std::distance(Itr->first, Itr->second) < MinNumStrings) {
         Deletees.push_back(Itr);
       }
     }

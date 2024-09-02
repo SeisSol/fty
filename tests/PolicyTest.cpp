@@ -15,11 +15,11 @@ using namespace fty;
 class PolicyTests : public ::testing::Test {
   protected:
   void SetUp() override {
-    m_Content.push_back("&Discretization\n");
-    m_Content.push_back("Order = 4\n");
-    m_Content.push_back(" Material = 1 \n");
-    m_Content.push_back(" Cfl = 0.5 ");
-    m_Content.push_back("/");
+    m_Content.emplace_back("&Discretization\n");
+    m_Content.emplace_back("Order = 4\n");
+    m_Content.emplace_back(" Material = 1 \n");
+    m_Content.emplace_back(" Cfl = 0.5 ");
+    m_Content.emplace_back("/");
 
     m_TestContent = m_Content;
   }

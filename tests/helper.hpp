@@ -10,12 +10,12 @@
 #include <type_traits>
 
 using namespace fty;
-BlockT make_block(StringsT &Content);
+auto make_block(StringsT &Content) -> BlockT;
 
 template <typename ListT> class Scroll {
 public:
   Scroll(const ListT &Content) : m_Content(Content){};
-  typename ListT::value_type operator[](size_t Index) {
+  auto operator[](size_t Index) -> typename ListT::value_type {
     assert(Index < m_Content.size() && "Index is out of the range");
     return *(std::next(m_Content.begin(), Index));
   }
@@ -35,20 +35,25 @@ public:
       m_Content.insert(m_Content.end(), Block.first, std::next(Block.second));
       auto Head = std::prev(m_Content.end(), std::distance(Block.first, std::next(Block.second)));
       auto Tail = std::prev(m_Content.end());
-      m_Blocks.push_back(std::make_pair(Head, Tail));
+      m_Blocks.emplace_back(Head, Tail);
     }
   }
 
+  auto operator=(const BlockFactory&) -> BlockFactory& = delete; // TODO
+  BlockFactory(BlockFactory&&) = delete; // TODO
+  auto operator=(BlockFactory&&) -> BlockFactory& = delete; // TODO
+  ~BlockFactory() = default;
+
   void add(StringsT LocalContent) {
     m_Content.insert(m_Content.end(), LocalContent.begin(), LocalContent.end());
-    auto Head = std::prev(m_Content.end(), LocalContent.size());
+    auto Head = std::prev(m_Content.end(), static_cast<ssize_t>(LocalContent.size()));
     auto Tail = std::prev(m_Content.end());
-    m_Blocks.push_back(std::make_pair(Head, Tail));
+    m_Blocks.emplace_back(Head, Tail);
   }
 
-  StringsT getContent() { return m_Content; }
+  auto getContent() -> StringsT { return m_Content; }
 
-  std::list<BlockT> getBlocks() { return m_Blocks; }
+  auto getBlocks() -> std::list<BlockT> { return m_Blocks; }
 
 private:
   StringsT m_Content;

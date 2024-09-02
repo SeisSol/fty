@@ -14,11 +14,11 @@
 
 using namespace fty;
 
-bool isEqualBlocks(const BlockT& Left, const BlockT& Right) {
+auto isEqualBlocks(const BlockT& Left, const BlockT& Right) -> bool {
   auto LeftSize = std::distance(Left.first, std::next(Left.second));
   auto RightSize = std::distance(Right.first, std::next(Right.second));
   if (LeftSize != RightSize) {
-    std::cout << "LeftSize: " << LeftSize << "; RightSize: " << RightSize << std::endl;
+    std::cout << "LeftSize: " << LeftSize << "; RightSize: " << RightSize << '\n';
     return false;
   }
 
@@ -26,7 +26,7 @@ bool isEqualBlocks(const BlockT& Left, const BlockT& Right) {
   auto RightItr = Right.first;
   for (int I = 0; I < LeftSize; ++I, ++LeftItr, ++RightItr) {
     if ((*LeftItr) != (*RightItr)) {
-      std::cout << "Left: " << *LeftItr << "; Right: " << *RightItr << ";" << std::endl;
+      std::cout << "Left: " << *LeftItr << "; Right: " << *RightItr << ";" << '\n';
       return false;
     }
   }
@@ -34,7 +34,6 @@ bool isEqualBlocks(const BlockT& Left, const BlockT& Right) {
 }
 
 TEST(BlockProcessorTest, RemoveEmptyBlocks) {
-  BlockProcessor Processor;
   BlockFactory Factory;
 
   Factory.add({{"&Empty"}, {"/"}});
@@ -52,14 +51,13 @@ TEST(BlockProcessorTest, RemoveEmptyBlocks) {
   const StringsT TestContent = TestFactory.getContent();
   std::list<BlockT> TestBlocks = TestFactory.getBlocks();
 
-  Processor.removeEmptyBlocks(TestBlocks);
+  fty::BlockProcessor::removeEmptyBlocks(TestBlocks);
   ASSERT_EQ(TestBlocks.size(), 2);
   ASSERT_TRUE(isEqualBlocks(BlockScroll(TestBlocks)[0], BlockScroll(Blocks)[1]));
   ASSERT_TRUE(isEqualBlocks(BlockScroll(TestBlocks)[1], BlockScroll(Blocks)[3]));
 }
 
 TEST(BlockProcessorTest, StartsWithCorruptedNextBlock) {
-  BlockProcessor Processor;
   BlockFactory Factory;
 
   Factory.add({{"&Empty"}, {"Dummy = 1"}});
@@ -68,11 +66,11 @@ TEST(BlockProcessorTest, StartsWithCorruptedNextBlock) {
   StringsT Content = Factory.getContent();
   auto Begin = Content.begin();
   auto End = Content.end();
-  ASSERT_THROW(Processor.getNextBlock(Begin, End), exception::CriticalTextBlockException);
+  ASSERT_THROW(fty::BlockProcessor::getNextBlock(Begin, End),
+               exception::CriticalTextBlockException);
 }
 
 TEST(BlockProcessorTest, EndsWithCorruptedNextBlock) {
-  BlockProcessor Processor;
   BlockFactory Factory;
 
   Factory.add({{"&Discretization"}, {"Order=1 "}, {"Cfl = 0.5  \n"}, {"MASK2 =1 0 1 0 0 1"}});
@@ -82,11 +80,11 @@ TEST(BlockProcessorTest, EndsWithCorruptedNextBlock) {
   StringsT Content = Factory.getContent();
   auto Begin = Content.begin();
   auto End = Content.end();
-  ASSERT_THROW(Processor.getNextBlock(Begin, End), exception::CriticalTextBlockException);
+  ASSERT_THROW(fty::BlockProcessor::getNextBlock(Begin, End),
+               exception::CriticalTextBlockException);
 }
 
 TEST(BlockProcessorTest, EndsWithoutTerminator) {
-  BlockProcessor Processor;
   BlockFactory Factory;
 
   Factory.add(
@@ -99,13 +97,13 @@ TEST(BlockProcessorTest, EndsWithoutTerminator) {
 
   auto Begin = Content.begin();
   auto End = Content.end();
-  const BlockT ValidBlock = Processor.getNextBlock(Begin, End);
+  const BlockT ValidBlock = fty::BlockProcessor::getNextBlock(Begin, End);
   ASSERT_TRUE(isEqualBlocks(ValidBlock, BlockScroll(Blocks)[0]));
-  ASSERT_THROW(Processor.getNextBlock(Begin, End), exception::CriticalTextBlockException);
+  ASSERT_THROW(fty::BlockProcessor::getNextBlock(Begin, End),
+               exception::CriticalTextBlockException);
 }
 
 TEST(BlockProcessorTest, EmptyLinesAfterLastBlock) {
-  BlockProcessor Processor;
   BlockFactory Factory;
 
   Factory.add({{""}, {"\n"}});
@@ -119,7 +117,7 @@ TEST(BlockProcessorTest, EmptyLinesAfterLastBlock) {
 
   auto Begin = Content.begin();
   auto End = Content.end();
-  const BlockT ValidBlock = Processor.getNextBlock(Begin, End);
+  const BlockT ValidBlock = fty::BlockProcessor::getNextBlock(Begin, End);
   ASSERT_TRUE(isEqualBlocks(ValidBlock, BlockScroll(Blocks)[1]));
-  ASSERT_THROW(Processor.getNextBlock(Begin, End), exception::TextBlockException);
+  ASSERT_THROW(fty::BlockProcessor::getNextBlock(Begin, End), exception::TextBlockException);
 }

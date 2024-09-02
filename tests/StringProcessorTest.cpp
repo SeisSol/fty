@@ -10,55 +10,52 @@
 using namespace fty;
 
 TEST(StartWithString, Found) {
-  StringProcessor Processor;
   std::string TestString;
 
   TestString = "&DataInFortranStyle    \n";
-  ASSERT_TRUE(Processor.startsWith(TestString, '&'));
+  ASSERT_TRUE(fty::StringProcessor::startsWith(TestString, '&'));
 
   TestString = "  \t   &DataInFortranStyle";
-  ASSERT_TRUE(Processor.startsWith(TestString, '&'));
+  ASSERT_TRUE(fty::StringProcessor::startsWith(TestString, '&'));
 }
 
 TEST(StartWithString, NotFound) {
-  StringProcessor Processor;
   std::string TestString;
 
   TestString = " DataInFortranStyle&    \n";
-  ASSERT_FALSE(Processor.startsWith(TestString, '&'));
+  ASSERT_FALSE(fty::StringProcessor::startsWith(TestString, '&'));
 
   TestString = "  \t   DataInFortranStyle";
-  ASSERT_FALSE(Processor.startsWith(TestString, '&'));
+  ASSERT_FALSE(fty::StringProcessor::startsWith(TestString, '&'));
 
   TestString = "!   &DataInFortranStyle";
-  ASSERT_FALSE(Processor.startsWith(TestString, '&'));
+  ASSERT_FALSE(fty::StringProcessor::startsWith(TestString, '&'));
 }
 
 TEST(StartWithString, EmptyStrings) {
-  StringProcessor Processor;
   std::string TestString{"\n"};
-  ASSERT_FALSE(Processor.startsWith(TestString, '&'));
+  ASSERT_FALSE(fty::StringProcessor::startsWith(TestString, '&'));
 
   TestString = "\n\n\n";
-  ASSERT_FALSE(Processor.startsWith(TestString, '&'));
+  ASSERT_FALSE(fty::StringProcessor::startsWith(TestString, '&'));
 
   TestString = "";
-  ASSERT_FALSE(Processor.startsWith(TestString, '&'));
+  ASSERT_FALSE(fty::StringProcessor::startsWith(TestString, '&'));
 }
 
 class CommentsAndEmptyLinesTest : public ::testing::Test {
   protected:
   void SetUp() override {
-    m_Content.push_back("\n");
-    m_Content.push_back("   ");
-    m_Content.push_back("   \n");
-    m_Content.push_back("\n   ");
-    m_Content.push_back(" !  Comments ");
-    m_Content.push_back("   \r\n");
-    m_Content.push_back("value1 = 3.14 !  Comments ");
-    m_Content.push_back(" value2 = 2.71 ! Comments ! Comment\n");
-    m_Content.push_back("value3 = 9.81! Comments ! Comment\n");
-    m_Content.push_back("");
+    m_Content.emplace_back("\n");
+    m_Content.emplace_back("   ");
+    m_Content.emplace_back("   \n");
+    m_Content.emplace_back("\n   ");
+    m_Content.emplace_back(" !  Comments ");
+    m_Content.emplace_back("   \r\n");
+    m_Content.emplace_back("value1 = 3.14 !  Comments ");
+    m_Content.emplace_back(" value2 = 2.71 ! Comments ! Comment\n");
+    m_Content.emplace_back("value3 = 9.81! Comments ! Comment\n");
+    m_Content.emplace_back("");
 
     m_TestContent = m_Content;
   }
@@ -69,8 +66,7 @@ class CommentsAndEmptyLinesTest : public ::testing::Test {
 
 TEST_F(CommentsAndEmptyLinesTest, removeEmptyLines) {
 
-  StringProcessor Processor;
-  Processor.removeEmptyLines(m_TestContent);
+  fty::StringProcessor::removeEmptyLines(m_TestContent);
 
   ASSERT_EQ(m_TestContent.size(), 4);
   ASSERT_STREQ(StringsScroll(m_TestContent)[0].c_str(), StringsScroll(m_Content)[4].c_str());
@@ -81,8 +77,7 @@ TEST_F(CommentsAndEmptyLinesTest, removeEmptyLines) {
 
 TEST_F(CommentsAndEmptyLinesTest, removeComments) {
 
-  StringProcessor Processor;
-  Processor.removeComments(m_TestContent);
+  fty::StringProcessor::removeComments(m_TestContent);
 
   // removeComments just trims comments
   ASSERT_EQ(m_TestContent.size(), m_Content.size());
@@ -94,9 +89,8 @@ TEST_F(CommentsAndEmptyLinesTest, removeComments) {
 
 TEST_F(CommentsAndEmptyLinesTest, CombinedTest) {
 
-  StringProcessor Processor;
-  Processor.removeComments(m_TestContent);
-  Processor.removeEmptyLines(m_TestContent);
+  fty::StringProcessor::removeComments(m_TestContent);
+  fty::StringProcessor::removeEmptyLines(m_TestContent);
 
   // removeComments just trims comments
   ASSERT_EQ(m_TestContent.size(), 3);

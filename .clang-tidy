@@ -2,7 +2,34 @@
 #
 # SPDX-License-Identifier: MIT
 
-Checks: '-*,clang-diagnostic-*,cppcoreguidelines-avoid-non-const-global-variables,llvm-*,-llvm-else-after-return,-llvm-header-guard,-llvm-qualified-auto,misc-*,misc-const-correctness,misc-misplaced-const,-misc-non-private-member-variables-in-classes,-misc-unused-parameters,modernize-use-override,modernize-use-equals-default,performance-move-const-arg,readability-non-const-parameter,readability-const-return-type,readability-identifier-naming'
+Checks: |
+  -*,
+  clang-diagnostic-*,
+  cppcoreguidelines-*,
+  -cppcoreguidelines-avoid-const-or-ref-data-members,
+  -cppcoreguidelines-avoid-magic-numbers,
+  -cppcoreguidelines-avoid-do-while,
+  -cppcoreguidelines-macro-usage,
+  -cppcoreguidelines-no-malloc,
+  -cppcoreguidelines-non-private-member-variables-in-classes,
+  -cppcoreguidelines-owning-memory,
+  -cppcoreguidelines-pro-bounds-pointer-arithmetic,
+  -cppcoreguidelines-pro-type-reinterpret-cast,
+  llvm-*,
+  -llvm-else-after-return,
+  -llvm-header-guard,
+  -llvm-qualified-auto,
+  misc-*,
+  -misc-non-private-member-variables-in-classes,
+  -misc-unused-parameters,
+  -misc-no-recursion,
+  modernize-*,
+  performance-*,
+  readability-*,
+  -readability-else-after-return,
+  -readability-identifier-length,
+  -readability-magic-numbers,
+  -readability-function-cognitive-complexity,
 WarningsAsErrors: '*'
 CheckOptions:
 #  - key:             readability-identifier-naming.AbstractClassCase

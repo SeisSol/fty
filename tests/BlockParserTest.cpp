@@ -99,9 +99,9 @@ TEST(FloatingPointField, StandardNotaion) {
 
   YAML::Node Node = Processor.getFields(Block);
   ASSERT_DOUBLE_EQ(Node["Epsilon1"].as<double>(), 1.01e-10);
-  ASSERT_FLOAT_EQ(Node["Epsilon2"].as<float>(), 1.01e+10f);
+  ASSERT_FLOAT_EQ(Node["Epsilon2"].as<float>(), 1.01e+10F);
   ASSERT_DOUBLE_EQ(Node["Epsilon3"].as<double>(), 1.01E-10);
-  ASSERT_FLOAT_EQ(Node["Epsilon4"].as<float>(), 1.01E+10f);
+  ASSERT_FLOAT_EQ(Node["Epsilon4"].as<float>(), 1.01E+10F);
 }
 
 TEST(FloatingPointField, FortranNotation) {
@@ -122,11 +122,11 @@ TEST(FloatingPointField, FortranNotation) {
 
   // (note that the assignment to float/double here is more or less randomly-chosen)
   ASSERT_DOUBLE_EQ(Node["Epsilon1"].as<double>(), 1.01e-10);
-  ASSERT_FLOAT_EQ(Node["Epsilon2"].as<float>(), 1.01e+10f);
+  ASSERT_FLOAT_EQ(Node["Epsilon2"].as<float>(), 1.01e+10F);
   ASSERT_DOUBLE_EQ(Node["Epsilon3"].as<double>(), 1.01e-10);
-  ASSERT_FLOAT_EQ(Node["Epsilon4"].as<float>(), 1.01e+10f);
+  ASSERT_FLOAT_EQ(Node["Epsilon4"].as<float>(), 1.01e+10F);
   ASSERT_DOUBLE_EQ(Node["Epsilon5"].as<double>(), 1.01e10);
-  ASSERT_FLOAT_EQ(Node["Epsilon6"].as<float>(), 1.01e10f);
+  ASSERT_FLOAT_EQ(Node["Epsilon6"].as<float>(), 1.01e10F);
   ASSERT_DOUBLE_EQ(Node["Epsilon7"].as<double>(), 1e10);
-  ASSERT_FLOAT_EQ(Node["Epsilon8"].as<float>(), 1e10f);
+  ASSERT_FLOAT_EQ(Node["Epsilon8"].as<float>(), 1e10F);
 }

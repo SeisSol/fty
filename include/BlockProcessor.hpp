@@ -23,7 +23,7 @@ class BlockProcessor {
    * a block
    * @return a list of string which contains a block
    */
-  BlockT getNextBlock(StringsT::iterator& CurrentItr, const StringsT::iterator End) {
+  static auto getNextBlock(StringsT::iterator& CurrentItr, const StringsT::iterator End) -> BlockT {
     BlockT Block;
     const char BlockBeginChar = '&';
     const char BlockEndChar = '/';
@@ -33,7 +33,8 @@ class BlockProcessor {
     }
 
     // skip everything above which is not a block
-    while ((CurrentItr != End) && (!m_StringProcessor.startsWith(*CurrentItr, BlockBeginChar))) {
+    while ((CurrentItr != End) &&
+           (!fty::StringProcessor::startsWith(*CurrentItr, BlockBeginChar))) {
       ++CurrentItr;
     }
     if (CurrentItr == End) {
@@ -47,11 +48,12 @@ class BlockProcessor {
     bool IsBlockEndFound = false;
     bool IsNextBlockFound = false;
     for (; CurrentItr != End; ++CurrentItr) {
-      IsBlockEndFound = m_StringProcessor.startsWith(*CurrentItr, BlockEndChar);
-      IsNextBlockFound = m_StringProcessor.startsWith(*CurrentItr, BlockBeginChar);
+      IsBlockEndFound = fty::StringProcessor::startsWith(*CurrentItr, BlockEndChar);
+      IsNextBlockFound = fty::StringProcessor::startsWith(*CurrentItr, BlockBeginChar);
 
-      if (IsBlockEndFound or IsNextBlockFound)
+      if (IsBlockEndFound or IsNextBlockFound) {
         break;
+      }
     }
 
     if (IsNextBlockFound) {
@@ -66,13 +68,14 @@ class BlockProcessor {
     Block.second = CurrentItr;
 
     // Advance to the next if it is not the end
-    if (CurrentItr != End)
+    if (CurrentItr != End) {
       ++CurrentItr;
+    }
 
     return Block;
   }
 
-  void removeEmptyBlocks(std::list<BlockT>& Blocks) {
+  static void removeEmptyBlocks(std::list<BlockT>& Blocks) {
 
     // NOTE: header + tail + at least one field
     const std::list<BlockT>::iterator::difference_type MinNumStrings = 2;
@@ -88,9 +91,6 @@ class BlockProcessor {
       Blocks.erase(Deletee);
     }
   }
-
-  private:
-  StringProcessor m_StringProcessor;
 };
 } // namespace fty
 

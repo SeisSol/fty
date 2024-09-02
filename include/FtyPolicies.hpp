@@ -10,7 +10,7 @@
 
 namespace fty {
 struct AsLowercase {
-  std::string apply(const std::string& String) {
+  static auto apply(const std::string& String) -> std::string {
     std::string ConvertedString(String.size(), '\0');
     std::transform(String.begin(), String.end(), ConvertedString.begin(), [](unsigned char Char) {
       return std::tolower(Char);
@@ -20,7 +20,7 @@ struct AsLowercase {
 };
 
 struct AsUppercase {
-  std::string apply(const std::string& String) {
+  static auto apply(const std::string& String) -> std::string {
     std::string ConvertedString(String.size(), '\0');
     std::transform(String.begin(), String.end(), ConvertedString.begin(), [](unsigned char Char) {
       return std::toupper(Char);
@@ -30,7 +30,7 @@ struct AsUppercase {
 };
 
 struct AsOriginal {
-  std::string apply(const std::string& String) { return String; }
+  static auto apply(const std::string& String) -> std::string { return String; }
 };
 } // namespace fty
 

@@ -6,4 +6,6 @@
 #include "FtyDataTypes.hpp"
 #include <utility>
 
-BlockT make_block(StringsT& Content) { return std::make_pair(Content.begin(), --Content.end()); }
+auto make_block(StringsT& Content) -> BlockT {
+  return std::make_pair(Content.begin(), --Content.end());
+}

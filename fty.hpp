@@ -1,3 +1,8 @@
+// SPDX-FileCopyrightText: 2022 Ravil Dorozhinskii
+// SPDX-FileCopyrightText: 2024 SeisSol Group
+//
+// SPDX-License-Identifier: MIT
+
 #ifndef FTY_CONVERTER_FTY_HPP
 #define FTY_CONVERTER_FTY_HPP
 
@@ -6,7 +11,7 @@
 #include "include/BlockProcessor.hpp"
 #include "include/FtyInternals.hpp"
 #include "include/FtyPolicies.hpp"
-#include "include/StringProcessor.h"
+#include "include/StringProcessor.hpp"
 // IWYU pragma: end_exports
 
 #include <fstream>

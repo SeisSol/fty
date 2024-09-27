@@ -1,4 +1,10 @@
+# SPDX-FileCopyrightText: 2020-2023 Ravil Dorozhinskii
+# SPDX-FileCopyrightText: 2024 SeisSol Group
+#
+# SPDX-License-Identifier: MIT
+
 .idea
-build
+build*
 cmake-build-*
 *.sw*
+.cache

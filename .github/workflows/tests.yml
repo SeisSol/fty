@@ -1,0 +1,40 @@
+# SPDX-FileCopyrightText: 2024 SeisSol Group
+#
+# SPDX-License-Identifier: MIT
+
+name: unittest
+on:
+  - push
+
+jobs:
+  unittest:
+    name: unittest
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: 'true'
+
+      - name: install-packages
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y libyaml-cpp-dev libgtest-dev ninja-build
+
+      - name: configure-googletest
+        run: |
+          cd /usr/src/googletest/googletest
+          sudo cmake ./CMakeLists.txt -Dgtest_disable_pthreads=ON -GNinja
+          sudo ninja
+
+          # ninja install was not found
+          sudo cp lib/*.a /usr/lib
+
+      - name: build
+        run: |
+          cd tests
+          mkdir build
+          cd build
+          cmake .. -GNinja
+          ninja
+          ./tests
+          cd ..

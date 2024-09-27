@@ -1,4 +1,9 @@
+// SPDX-FileCopyrightText: 2020-2023 Ravil Dorozhinskii
+//
+// SPDX-License-Identifier: MIT
+
 #include "BlockParser.hpp"
+#include "FtyDataTypes.hpp"
 #include "FtyPolicies.hpp"
 #include "helper.hpp"
 #include "gtest/gtest.h"
@@ -8,13 +13,13 @@
 using namespace fty;
 
 class PolicyTests : public ::testing::Test {
-protected:
+  protected:
   void SetUp() override {
-    m_Content.push_back("&Discretization\n");
-    m_Content.push_back("Order = 4\n");
-    m_Content.push_back(" Material = 1 \n");
-    m_Content.push_back(" Cfl = 0.5 ");
-    m_Content.push_back("/");
+    m_Content.emplace_back("&Discretization\n");
+    m_Content.emplace_back("Order = 4\n");
+    m_Content.emplace_back(" Material = 1 \n");
+    m_Content.emplace_back(" Cfl = 0.5 ");
+    m_Content.emplace_back("/");
 
     m_TestContent = m_Content;
   }
@@ -23,10 +28,10 @@ protected:
 };
 
 TEST_F(PolicyTests, LowercaseTest) {
-  BlockT Block = make_block(m_TestContent);
+  const BlockT Block = make_block(m_TestContent);
   BlockParser<AsLowercase> Processor;
 
-  std::string Header = Processor.getHeader(Block);
+  const std::string Header = Processor.getHeader(Block);
   ASSERT_STREQ(Header.c_str(), "discretization");
 
   YAML::Node Node = Processor.getFields(Block);
@@ -36,10 +41,10 @@ TEST_F(PolicyTests, LowercaseTest) {
 }
 
 TEST_F(PolicyTests, UppercaseTest) {
-  BlockT Block = make_block(m_TestContent);
+  const BlockT Block = make_block(m_TestContent);
   BlockParser<AsUppercase> Processor;
 
-  std::string Header = Processor.getHeader(Block);
+  const std::string Header = Processor.getHeader(Block);
   ASSERT_STREQ(Header.c_str(), "DISCRETIZATION");
 
   YAML::Node Node = Processor.getFields(Block);
@@ -49,10 +54,10 @@ TEST_F(PolicyTests, UppercaseTest) {
 }
 
 TEST_F(PolicyTests, OriginalPolicyTest) {
-  BlockT Block = make_block(m_TestContent);
+  const BlockT Block = make_block(m_TestContent);
   BlockParser<AsOriginal> Processor;
 
-  std::string Header = Processor.getHeader(Block);
+  const std::string Header = Processor.getHeader(Block);
   ASSERT_STREQ(Header.c_str(), "Discretization");
 
   YAML::Node Node = Processor.getFields(Block);

@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2020-2023 Ravil Dorozhinskii
+//
+// SPDX-License-Identifier: MIT
+
 #ifndef FTY_CONVERTER_BLOCKPARSER_HPP
 #define FTY_CONVERTER_BLOCKPARSER_HPP
 
@@ -7,11 +11,12 @@
 
 namespace fty {
 
-template <typename Policy> class BlockParser {
-public:
-  std::string getHeader(const BlockT &Block) {
+template <typename Policy>
+class BlockParser {
+  public:
+  auto getHeader(const BlockT& Block) -> std::string {
     std::smatch Match;
-    const std::string &Header = *Block.first;
+    const std::string& Header = *Block.first;
     if (std::regex_match(Header, Match, m_HeaderExpr)) {
       return m_KeyModifier.apply(Match[1]);
     } else {
@@ -19,7 +24,7 @@ public:
     }
   }
 
-  YAML::Node getFields(const BlockT &Block) {
+  auto getFields(const BlockT& Block) -> YAML::Node {
     YAML::Node Fields;
 
     auto Itr = next(Block.first); // the header
@@ -32,8 +37,8 @@ public:
     for (; Itr != End; ++Itr) {
       std::smatch Match;
       if (std::regex_match(*Itr, Match, m_FieldExpr)) {
-        std::string Identifier = m_KeyModifier.apply(Match[1]);
-        std::string ValueStr = Match[2];
+        const std::string Identifier = m_KeyModifier.apply(Match[1]);
+        const std::string ValueStr = Match[2];
 
         if (!Fields[Identifier]) {
 
@@ -41,11 +46,9 @@ public:
           std::smatch SubMatch;
           if (std::regex_match(ValueStr, SubMatch, m_QuotedValueExpr)) {
             Fields[Identifier] = std::string(SubMatch[2]);
-          }
-          else if (std::regex_match(ValueStr, SubMatch, m_LegacyFortranFloatExpr)) {
-            Fields[Identifier] = std::regex_replace(ValueStr, m_LegacyFortranFloatExpr, "$1e$3");
-          }
-          else {
+          } else if (std::regex_match(ValueStr, SubMatch, m_LegacyFortranFloatExpr)) {
+            Fields[Identifier] = std::regex_replace(ValueStr, m_LegacyFortranFloatExpr, "$1e$2");
+          } else {
             Fields[Identifier] = ValueStr;
           }
         } else {
@@ -67,12 +70,13 @@ public:
     return Fields;
   }
 
-private:
-  std::regex m_HeaderExpr{"^\\s*&\\s*(\\w*)\\s*.*\\s?"};
-  std::regex m_FieldExpr{"\\s*(\\w*)\\s*=\\s*((?:\\w|[[:punct:]])(?:(?:\\w|[[:punct:]]|\\s)*(?:\\w|"
-                         "[[:punct:]]))?)\\s*"};
-  std::regex m_QuotedValueExpr{"^(\'|\")+(.*)(\'|\")+$"};
-  std::regex m_LegacyFortranFloatExpr{"^(\\d*\\.?\\d*)(D|d)([\\+-]\\d+)$"}; // 'D' or 'd' instead of 'E' or 'e'
+  private:
+  std::regex m_HeaderExpr{R"(^\s*&\s*(\w*)\s*.*\s?)"};
+  std::regex m_FieldExpr{
+      R"(\s*(\w*)\s*=\s*((?:\w|[[:punct:]])(?:(?:\w|[[:punct:]]|\s)*(?:\w|[[:punct:]]))?)\s*)"};
+  std::regex m_QuotedValueExpr{R"(^('|")+(.*)('|")+$)"};
+  std::regex m_LegacyFortranFloatExpr{
+      R"(^(\d*\.?\d*)(?:D|d)([\+-]?\d+)$)"}; // 'D' or 'd' instead of 'E' or 'e'
   Policy m_KeyModifier;
 };
 } // namespace fty

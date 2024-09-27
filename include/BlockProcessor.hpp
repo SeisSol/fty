@@ -1,14 +1,18 @@
+// SPDX-FileCopyrightText: 2020-2023 Ravil Dorozhinskii
+//
+// SPDX-License-Identifier: MIT
+
 #ifndef FTY_CONVERTER_BLOCKPROCESSOR_HPP
 #define FTY_CONVERTER_BLOCKPROCESSOR_HPP
 
 #include "FtyInternals.hpp"
-#include "StringProcessor.h"
+#include "StringProcessor.hpp"
 #include <iostream>
 
 namespace fty {
 
 class BlockProcessor {
-public:
+  public:
   /**
    * Finds a block given the beginning, end, comment symbols of a block. 'Bigin' iterator will be
    * modified which will point to the next line after the end block symbol
@@ -19,7 +23,7 @@ public:
    * a block
    * @return a list of string which contains a block
    */
-  BlockT getNextBlock(StringsT::iterator &CurrentItr, const StringsT::iterator End) {
+  static auto getNextBlock(StringsT::iterator& CurrentItr, const StringsT::iterator End) -> BlockT {
     BlockT Block;
     const char BlockBeginChar = '&';
     const char BlockEndChar = '/';
@@ -29,7 +33,8 @@ public:
     }
 
     // skip everything above which is not a block
-    while ((CurrentItr != End) && (!m_StringProcessor.startsWith(*CurrentItr, BlockBeginChar))) {
+    while ((CurrentItr != End) &&
+           (!fty::StringProcessor::startsWith(*CurrentItr, BlockBeginChar))) {
       ++CurrentItr;
     }
     if (CurrentItr == End) {
@@ -43,11 +48,12 @@ public:
     bool IsBlockEndFound = false;
     bool IsNextBlockFound = false;
     for (; CurrentItr != End; ++CurrentItr) {
-      IsBlockEndFound = m_StringProcessor.startsWith(*CurrentItr, BlockEndChar);
-      IsNextBlockFound = m_StringProcessor.startsWith(*CurrentItr, BlockBeginChar);
+      IsBlockEndFound = fty::StringProcessor::startsWith(*CurrentItr, BlockEndChar);
+      IsNextBlockFound = fty::StringProcessor::startsWith(*CurrentItr, BlockBeginChar);
 
-      if (IsBlockEndFound or IsNextBlockFound)
+      if (IsBlockEndFound or IsNextBlockFound) {
         break;
+      }
     }
 
     if (IsNextBlockFound) {
@@ -62,31 +68,29 @@ public:
     Block.second = CurrentItr;
 
     // Advance to the next if it is not the end
-    if (CurrentItr != End)
+    if (CurrentItr != End) {
       ++CurrentItr;
+    }
 
     return Block;
   }
 
-  void removeEmptyBlocks(std::list<BlockT> &Blocks) {
+  static void removeEmptyBlocks(std::list<BlockT>& Blocks) {
 
     // NOTE: header + tail + at least one field
-    const std::list<BlockT>::iterator::difference_type MIN_NUM_STRINGS = 2;
+    const std::list<BlockT>::iterator::difference_type MinNumStrings = 2;
 
     std::vector<std::list<BlockT>::iterator> Deletees;
     for (auto Itr = Blocks.begin(); Itr != Blocks.end(); ++Itr) {
-      if (std::distance(Itr->first, Itr->second) < MIN_NUM_STRINGS) {
+      if (std::distance(Itr->first, Itr->second) < MinNumStrings) {
         Deletees.push_back(Itr);
       }
     }
 
-    for (auto &Deletee : Deletees) {
+    for (auto& Deletee : Deletees) {
       Blocks.erase(Deletee);
     }
   }
-
-private:
-  StringProcessor m_StringProcessor;
 };
 } // namespace fty
 

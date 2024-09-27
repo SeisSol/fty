@@ -1,3 +1,9 @@
+<!--
+  SPDX-FileCopyrightText: 2020-2023 Ravil Dorozhinskii
+
+  SPDX-License-Identifier: MIT
+-->
+
 # fty - Fortran To Yaml
 
 It is a small header-only C++ library which is supposed to help people to start converting their legacy Fortran code to C++. The library reads a text file or lists of strings formatted according  to Fortran *NAMELIST I/O* style, and generates a YAML::Node (a hash table) containing retrieved information.

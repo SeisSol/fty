@@ -1,0 +1,9 @@
+SPDX-FileCopyrightText: 2024 SeisSol Group
+
+SPDX-License-Identifier: MIT
+
+---
+
+Programmed by Ravil Dorozhinskii.
+
+Currently maintained by the SeisSol Group (cf. the members of https://github.com/SeisSol ).
